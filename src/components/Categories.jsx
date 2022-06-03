@@ -1,12 +1,11 @@
 import { useState } from 'react';
 const categories = ['Все', 'Мясныe', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-export default function Categories() {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function Categories({ categoryId, setCategoryId }) {
   function isActive(index) {
-    if (index === activeIndex) return 'active';
+    if (index === categoryId) return 'active';
   }
   function onClickCategory(index) {
-    setActiveIndex(index);
+    setCategoryId(index);
   }
   return (
     <div className="categories">

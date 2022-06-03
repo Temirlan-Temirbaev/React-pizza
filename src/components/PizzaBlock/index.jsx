@@ -1,12 +1,14 @@
 import { useState } from 'react';
 const typesArr = ['тонкое', 'традиционное'];
 export default function PizzaBlock({ pizza }) {
-  const { imageUrl, title, types, sizes, price, category } = pizza;
+  const { imageUrl, title, types, sizes, price, category, id } = pizza;
   const [count, setCount] = useState(0);
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
   function addPizza() {
     setCount(count + 1);
+    const pizzasInfo = { id: id, count: count, type: activeType, size: activeSize };
+    console.log(pizzasInfo);
   }
   function isActiveClass(activeStateName, index) {
     if (activeStateName === index) return 'active';
