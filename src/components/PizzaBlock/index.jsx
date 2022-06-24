@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../../redux/reducers/cartReducer';
 const typesArr = ['тонкое', 'традиционное'];
 export default function PizzaBlock({ imageUrl, title, types, sizes, price, id }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const count = cartItem ? cartItem.count : 0;
   const [activeType, setActiveType] = useState(0);
-  const [activeSize, setActiveSize] = useState(0);
+  const [activeSize, setActiveSize] = useState(sizes[0]);
   function addPizza() {
     const item = {
       id,
@@ -15,7 +17,7 @@ export default function PizzaBlock({ imageUrl, title, types, sizes, price, id })
       type: typesArr[activeType],
       size: activeSize,
     };
-    dispatch({ type: 'ADD_PRODUCT', payload: item });
+    dispatch(addItem(item));
   }
   function isActiveClass(activeStateName, index) {
     if (activeStateName === index) return 'active';
@@ -37,7 +39,10 @@ export default function PizzaBlock({ imageUrl, title, types, sizes, price, id })
         </ul>
         <ul>
           {sizes.map((size, i) => (
-            <li onClick={() => setActiveSize(i)} className={isActiveClass(activeSize, i)} key={i}>
+            <li
+              onClick={() => setActiveSize(size)}
+              className={isActiveClass(activeSize, size)}
+              key={i}>
               {size}
             </li>
           ))}
@@ -58,7 +63,7 @@ export default function PizzaBlock({ imageUrl, title, types, sizes, price, id })
             />
           </svg>
           <span>Добавить</span>
-          <i>0</i>
+          <i>{count}</i>
         </button>
       </div>
     </div>

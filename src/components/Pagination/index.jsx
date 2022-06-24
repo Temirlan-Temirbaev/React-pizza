@@ -8,7 +8,7 @@ export default function Pagination({ currentPage, onChangePage }) {
       previousLabel='<'
       nextLabel='>'
       onPageChange={(event) => {
-        onChangePage({ type: 'SET_PAGE', payload: event.selected + 1 });
+        onChangePage(event.selected + 1);
       }}
       pageRangeDisplayed={4}
       pageCount={3}

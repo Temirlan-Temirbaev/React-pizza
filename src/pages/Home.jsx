@@ -9,7 +9,12 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort, { sortValues } from '../components/Sort';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
-import { setFilters } from '../redux/reducers/filterReducer';
+import {
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+  setSort,
+} from '../redux/reducers/filterReducer';
 export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,15 +43,13 @@ export default function Home() {
   useEffect(() => {
     if (window.location.search) {
       const params = qs.parse(window.location.search.substring(1));
-      const sort = sortValues.find((obj) => obj.sort === params.sortBy);
-      dispatch(setFilters(params.categoryId, params.currentPage, sort));
-      // payload: {
-      //   categoryId: params.categoryId,
-      //   currentPage: params.currentPage,
-      //   activeSort: sort,
-      // },
-      isSearch.current = true;
+      const sort = sortValues.find((obj) => obj.sortProperty === params.sortProperty);
+      if (sort) {
+        params.sort = sort;
+      }
+      dispatch(setFilters(params));
     }
+    isMounted.current = true;
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -68,12 +71,22 @@ export default function Home() {
   return (
     <div className='container'>
       <div className='content__top'>
-        <Categories categoryId={categoryId} />
-        {/* {        <Sort activeSort={activeSort} />} */}
+        <Categories categoryId={categoryId} setCategoryId={(id) => dispatch(setCategoryId(id))} />
+        <Sort
+          activeSort={activeSort}
+          setActiveSort={(obj) => {
+            dispatch(setSort(obj));
+          }}
+        />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>{isLoading ? skeleton : pizzas}</div>
-      {/* {      <Pagination currentPage={currentPage} /> */}
+      <Pagination
+        currentPage={currentPage}
+        onChangePage={(num) => {
+          dispatch(setCurrentPage(num));
+        }}
+      />
     </div>
   );
 }

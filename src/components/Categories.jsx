@@ -4,7 +4,7 @@ export default function Categories({ categoryId, setCategoryId }) {
     if (index === categoryId) return 'active';
   }
   function onClickCategory(index) {
-    setCategoryId({ type: 'SET_CATEGORY_ID', payload: index });
+    setCategoryId(index);
   }
   return (
     <div className='categories'>

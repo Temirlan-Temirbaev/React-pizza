@@ -10,7 +10,7 @@ export const sortValues = [
 export default function Sort({ setActiveSort, activeSort }) {
   const [isVisible, setIsVisible] = useState(false);
   function onClickSort(sortObj) {
-    setActiveSort({ type: 'SET_SORT', payload: sortObj });
+    setActiveSort(sortObj);
     setIsVisible(false);
   }
   const sortRef = useRef();
