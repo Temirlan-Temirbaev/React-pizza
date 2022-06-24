@@ -16,7 +16,6 @@ html::-webkit-scrollbar-thumb {
 body {
   background-color: $background;
 }
-
 .wrapper {
   width: calc(100vw - 100px);
   height: 100%;
@@ -30,7 +29,32 @@ body {
     margin-top: 15px;
   }
 }
-
+.cart__item-count-minus{
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  font-family: Nunito,Roboto,system-ui,Tahoma,sans-serif;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color .15s ease-in-out,border-color .15s ease-in-out;
+  user-select: none;
+  align-items: center;
+  border-width: 2px;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  min-width: 32px;
+  padding: 0;
+  width: 32px;
+  background-color: #fff;
+  border-color: #fe5f1e;
+  color: #fe5f1e;
+}
 .content {
   padding: 40px 0;
 
